@@ -38,7 +38,6 @@ public class BoardCreator : MonoBehaviour {
 
 	public GameObject[] piecePreFabs;
 
-	private GameObject[] pieces = new GameObject[100];
 	private System.Random rnd = new System.Random();
 
 	private static int[,] board10 = new int[5, 10] { 
@@ -83,9 +82,7 @@ public class BoardCreator : MonoBehaviour {
 	public void createBoard() {
 		Debug.Log ("CREATE BOARD CALLED!");
 		// First we remove old pieces
-		foreach (GameObject piece in pieces) {
-			Destroy (piece);
-		}
+		deleteAllPieces();
 
 		Stack<int> pieceStack = pickPrefabs(board1);
 		BoardPosition pos = new BoardPosition ();
@@ -99,7 +96,7 @@ public class BoardCreator : MonoBehaviour {
 			for (int k = 0; k < lvl.GetLength (0); k++) {
 				for (int l = 0; l < lvl.GetLength (1); l++) {
 					if (lvl [k, l] == 1) {
-						GameObject createdPiece = Instantiate(
+						Instantiate(
 							piecePreFabs[pieceStack.Pop()], 
 							new Vector3(
 								pos.xPos, 
@@ -111,7 +108,6 @@ public class BoardCreator : MonoBehaviour {
 								180f
 							)
 						);
-						pieces [k+l] = createdPiece;
 					}
 
 					pos.increaseX ();
@@ -163,5 +159,16 @@ public class BoardCreator : MonoBehaviour {
 		}
 
 		return new Stack<int> (array);
+	}
+
+	private void deleteAllPieces () {
+		GameObject[] activePieces = GameObject.FindGameObjectsWithTag("Active");
+		foreach (GameObject p in activePieces) {
+			Destroy (p);
+		}
+		GameObject[] inactivePieces = GameObject.FindGameObjectsWithTag("Inactive");
+		foreach (GameObject p in inactivePieces) {
+			Destroy (p);
+		}
 	}
 }
