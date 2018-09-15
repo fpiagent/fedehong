@@ -24,12 +24,12 @@ public class GameController : MonoBehaviour {
 				Destroy (activePieces [0]);
 				Destroy (activePieces [1]);
 			} else {
-				cleanPieces (activePieces);
+				setPiecesInactive (activePieces);
 			}
 		}
 	}	
 
-	private void cleanPieces(GameObject[] activePieces) {
+	private void setPiecesInactive(GameObject[] activePieces) {
 		foreach (GameObject activePiece in activePieces) {
 			activePiece.tag = "Inactive";
 		}

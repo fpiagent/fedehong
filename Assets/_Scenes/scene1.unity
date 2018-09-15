@@ -146,7 +146,7 @@ MeshRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: f125ab4786d1342bd844c881bd7be4be, type: 2}
+  - {fileID: 2100000, guid: 43b684529c8974e1fb3d7571188b650e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -217,6 +217,11 @@ MonoBehaviour:
   - {fileID: 1378409426469188, guid: a4abcbcc16f804af5a7185e3e9680259, type: 2}
   - {fileID: 1010744613070320, guid: bf075ce5f567144c3ba3a0a944101c1c, type: 2}
   - {fileID: 1356367260232118, guid: d8cf0015d4ff24e108b31449baef2d28, type: 2}
+  - {fileID: 1252950497002668, guid: da68979fb8d1d4044865a0d80d645a90, type: 2}
+  - {fileID: 1786566537087770, guid: 5f56ac26ca5aa4ef3852b042ae92fb0f, type: 2}
+  - {fileID: 1050298209361370, guid: edfd1be4583f7404081aa40279e055ff, type: 2}
+  - {fileID: 1547346284362674, guid: 3e9bcb8f2edcf46708602d449fafbf95, type: 2}
+  - {fileID: 1000112691139998, guid: 7668cb8b4c86148c1bc39a04ad93751e, type: 2}
 --- !u!1 &49265738
 GameObject:
   m_ObjectHideFlags: 0

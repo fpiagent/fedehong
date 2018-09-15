@@ -40,7 +40,7 @@ public class BoardCreator : MonoBehaviour {
 
 	private System.Random rnd = new System.Random();
 
-	private static int[,] board10 = new int[5, 10] { 
+	private static int[,] board10 = new int[5, 10] {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
@@ -55,7 +55,7 @@ public class BoardCreator : MonoBehaviour {
 		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}
 	};
 
-	private static int[,] board12 = new int[3, 8] { 
+	private static int[,] board12 = new int[3, 8] {
 		{ 1, 1, 1, 1, 1, 1, 1, 1}, 
 		{ 1, 1, 1, 1, 1, 1, 1, 1},
 		{ 1, 1, 1, 1, 1, 1, 1, 1}
