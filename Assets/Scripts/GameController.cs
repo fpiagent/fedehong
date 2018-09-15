@@ -9,10 +9,15 @@ public class GameController : MonoBehaviour {
 
 	protected void Update()
 	{
+		// ACTIVE PIECES
 		GameObject[] activePieces = GameObject.FindGameObjectsWithTag("Active");
-		if (activePieces.Length == 1) {
-			placeHighlightOn (activePieces [0]);
-		} else if (activePieces.Length == 2) {
+		placeHighlightOn (activePieces);
+
+		// INACTIVE PIECES
+		GameObject[] inactivePieces = GameObject.FindGameObjectsWithTag("Inactive");
+		removeHighlightOn (inactivePieces);
+
+		if (activePieces.Length >= 2) {
 			Material pieceMaterial = activePieces [0].GetComponent<Renderer> ().material;
 			Material otherPieceMaterial = activePieces [1].GetComponent<Renderer> ().material;
 			if (pieceMaterial.color == otherPieceMaterial.color) {
@@ -30,19 +35,29 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
-	private void placeHighlightOn(GameObject piece) {
-		if (piece.transform.childCount == 0) {
-			Vector3 highlightPosition = new Vector3(
-				piece.transform.position.x, 
-				piece.transform.position.y + 1, 
-				piece.transform.position.z);
+	private void placeHighlightOn(GameObject[] pieces) {
+		foreach (GameObject piece in pieces) {
+			if (piece.transform.childCount == 0) {
+				Vector3 highlightPosition = new Vector3(
+					piece.transform.position.x, 
+					piece.transform.position.y + 1, 
+					piece.transform.position.z);
 
-			GameObject newHighlight = Instantiate(
-				highlight, 
-				highlightPosition, 
-				piece.transform.rotation);
+				GameObject newHighlight = Instantiate(
+					highlight, 
+					highlightPosition, 
+					piece.transform.rotation);
 
-			newHighlight.transform.parent = piece.transform;
+				newHighlight.transform.parent = piece.transform;
+			}
+		}
+	}
+
+	private void removeHighlightOn(GameObject[] pieces) {
+		foreach (GameObject piece in pieces) {
+			if (piece.transform.childCount > 0) {
+				Destroy (piece.transform.GetChild(0).gameObject);
+			}
 		}
 	}
 }
