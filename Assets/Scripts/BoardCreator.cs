@@ -39,54 +39,18 @@ public class BoardCreator : MonoBehaviour {
 	public GameObject[] piecePreFabs;
 
 	private System.Random rnd = new System.Random();
+	private Boards boards = new Boards ();
 
-	private static int[,] board10 = new int[5, 10] {
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board11 = new int[4, 9] { 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board12 = new int[3, 8] {
-		{ 1, 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board13 = new int[2, 7] { 
-		{ 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board14 = new int[1, 6] { 
-		{ 1, 1, 1, 1, 1, 1}
-	};
-
-	private static List<int[,]> board1 = new List<int[,]>
-	{
-		board10,
-		board11,
-		board12,
-		board13,
-		board14
-	};
+	// TODO: Replace boards with gameObject.Find("NameOfTheGameObjectTarget").GetComponent<NameOfTheScrit>().NameOfTheProperty =
 		
 	public void createBoard() {
 		Debug.Log ("CREATE BOARD CALLED!");
 		// First we remove old pieces
 		deleteAllPieces();
 
-		Stack<int> pieceStack = pickPrefabs(board1);
+		Stack<int> pieceStack = pickPrefabs(boards.getBoard());
 		BoardPosition pos = new BoardPosition ();
-		foreach (int[,] lvl in board1) {
+		foreach (int[,] lvl in boards.getBoard()) {
 			float startingX = -(lvl.GetLength(1) * BoardPosition.xDiff / 2);
 			float startingZ = -(lvl.GetLength(0) * BoardPosition.zDiff / 2);
 			pos.initX = pos.xPos = startingX;
@@ -132,11 +96,12 @@ public class BoardCreator : MonoBehaviour {
 			amountToPick = amountToPick + lvl.Length;
 		}
 
-		Debug.Log ("Generating: " + amountToPick + " pieces.");
-
 		Stack<int> allPiecesStack = new Stack<int> ();
 
 		int amountPerPrefab = amountToPick / piecePreFabs.Length;
+
+		Debug.Log ("Generating: " + amountToPick + " pieces with: " + amountPerPrefab + " per prefab.");
+
 		for (int i = 0; i < piecePreFabs.Length; i++) {
 			for (int ii = 0; ii < amountPerPrefab; ii++) {
 				allPiecesStack.Push (i);
@@ -170,5 +135,51 @@ public class BoardCreator : MonoBehaviour {
 		foreach (GameObject p in inactivePieces) {
 			Destroy (p);
 		}
+	}
+}
+
+class Boards {
+
+	private static int[,] board10 = new int[6, 11] {
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+
+	private static int[,] board11 = new int[4, 9] { 
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+
+	private static int[,] board12 = new int[2, 7] { 
+		{ 1, 1, 1, 1, 1, 1, 1}, 
+		{ 1, 1, 1, 1, 1, 1, 1}
+	};
+
+	private static int[,] board13 = new int[2, 8] { 
+		{ 1, 1, 1, 1, 1, 1, 1, 1},
+		{ 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+
+	private static int[,] board14 = new int[1, 8] { 
+		{ 1, 1, 1, 1, 1, 1, 1, 1}
+	};
+
+	private static List<int[,]> board1 = new List<int[,]>
+	{
+		board10,
+		board11,
+		board12,
+		board13,
+		board14
+	};
+
+	public List<int[,]> getBoard() {
+		return board1;
 	}
 }
