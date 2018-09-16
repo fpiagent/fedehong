@@ -6,9 +6,20 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public GameObject highlight;
+	public GameObject boardController;
 
-	protected void Update()
-	{
+	public Text counterText;
+	public Text timerText;
+
+	private int pointCounter = 0;
+	private int MATCH_VALUE = 100;
+	private int FAIL_VALUE = 50;
+
+	public void reset() {
+//		boardController
+	}
+
+	protected void Update() {
 		// ACTIVE PIECES
 		GameObject[] activePieces = GameObject.FindGameObjectsWithTag("Active");
 		placeHighlightOn (activePieces);
@@ -20,13 +31,17 @@ public class GameController : MonoBehaviour {
 		if (activePieces.Length >= 2) {
 			Material pieceMaterial = activePieces [0].GetComponent<Renderer> ().material;
 			Material otherPieceMaterial = activePieces [1].GetComponent<Renderer> ().material;
-			if (pieceMaterial.color == otherPieceMaterial.color) {
+			if (pieceMaterial.name.Equals(otherPieceMaterial.name)) {
 				Destroy (activePieces [0]);
 				Destroy (activePieces [1]);
+				increasePoints ();
 			} else {
 				setPiecesInactive (activePieces);
+				decreasePoints ();
 			}
 		}
+
+		updateTime ();
 	}	
 
 	private void setPiecesInactive(GameObject[] activePieces) {
@@ -59,5 +74,22 @@ public class GameController : MonoBehaviour {
 				Destroy (piece.transform.GetChild(0).gameObject);
 			}
 		}
+	}
+
+	private void increasePoints () {
+		pointCounter = pointCounter + MATCH_VALUE;
+		counterText.text = "Points: " + pointCounter;
+	}
+
+	private void decreasePoints () {
+		pointCounter = pointCounter - FAIL_VALUE;
+		counterText.text = "Points: " + pointCounter;
+	}
+
+	private void updateTime () {
+		string minutes = Mathf.Floor(Time.fixedTime / 60).ToString("00");
+		string seconds = (Time.fixedTime % 60).ToString("00");
+
+		timerText.text = "Timer: " + minutes + ":" + seconds;
 	}
 }

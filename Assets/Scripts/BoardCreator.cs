@@ -41,8 +41,6 @@ public class BoardCreator : MonoBehaviour {
 	private System.Random rnd = new System.Random();
 	private Boards boards = new Boards ();
 
-	// TODO: Replace boards with gameObject.Find("NameOfTheGameObjectTarget").GetComponent<NameOfTheScrit>().NameOfTheProperty =
-		
 	public void createBoard() {
 		Debug.Log ("CREATE BOARD CALLED!");
 		// First we remove old pieces
