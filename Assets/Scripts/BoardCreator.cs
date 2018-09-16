@@ -37,18 +37,17 @@ class BoardPosition
 public class BoardCreator : MonoBehaviour {
 
 	public GameObject[] piecePreFabs;
+	public LevelGenerator levelGenerator;
 
 	private System.Random rnd = new System.Random();
-	private Boards boards = new Boards ();
 
 	public void createBoard() {
-		Debug.Log ("CREATE BOARD CALLED!");
-		// First we remove old pieces
 		deleteAllPieces();
+		int boardId = 2;
 
-		Stack<int> pieceStack = pickPrefabs(boards.getBoard());
+		Stack<int> pieceStack = pickPrefabs(levelGenerator.getBoard(boardId));
 		BoardPosition pos = new BoardPosition ();
-		foreach (int[,] lvl in boards.getBoard()) {
+		foreach (int[,] lvl in levelGenerator.getBoard(boardId)) {
 			float startingX = -(lvl.GetLength(1) * BoardPosition.xDiff / 2);
 			float startingZ = -(lvl.GetLength(0) * BoardPosition.zDiff / 2);
 			pos.initX = pos.xPos = startingX;
@@ -133,51 +132,5 @@ public class BoardCreator : MonoBehaviour {
 		foreach (GameObject p in inactivePieces) {
 			Destroy (p);
 		}
-	}
-}
-
-class Boards {
-
-	private static int[,] board10 = new int[6, 11] {
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board11 = new int[4, 9] { 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board12 = new int[2, 7] { 
-		{ 1, 1, 1, 1, 1, 1, 1}, 
-		{ 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board13 = new int[2, 8] { 
-		{ 1, 1, 1, 1, 1, 1, 1, 1},
-		{ 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static int[,] board14 = new int[1, 8] { 
-		{ 1, 1, 1, 1, 1, 1, 1, 1}
-	};
-
-	private static List<int[,]> board1 = new List<int[,]>
-	{
-		board10,
-		board11,
-		board12,
-		board13,
-		board14
-	};
-
-	public List<int[,]> getBoard() {
-		return board1;
 	}
 }

@@ -6,17 +6,28 @@ using UnityEngine.UI;
 public class GameController : MonoBehaviour {
 
 	public GameObject highlight;
-	public GameObject boardController;
+	public BoardCreator boardCreator;
 
 	public Text counterText;
 	public Text timerText;
+	public GameObject winMessage;
 
+
+
+	private float startingTime = 0.0f;
 	private int pointCounter = 0;
 	private int MATCH_VALUE = 100;
 	private int FAIL_VALUE = 50;
 
-	public void reset() {
-//		boardController
+	private bool win = false;
+
+	public void resetGame() {
+		boardCreator.createBoard ();
+		pointCounter = 0;
+		counterText.text = "Points: " + pointCounter;
+		startingTime = Time.fixedTime;
+		win = false;
+		winMessage.SetActive (false);
 	}
 
 	protected void Update() {
@@ -42,6 +53,7 @@ public class GameController : MonoBehaviour {
 		}
 
 		updateTime ();
+		checkWin (activePieces, inactivePieces);
 	}	
 
 	private void setPiecesInactive(GameObject[] activePieces) {
@@ -87,9 +99,20 @@ public class GameController : MonoBehaviour {
 	}
 
 	private void updateTime () {
-		string minutes = Mathf.Floor(Time.fixedTime / 60).ToString("00");
-		string seconds = (Time.fixedTime % 60).ToString("00");
+		if (!win) {
+			float gameTime = Time.fixedTime - startingTime;
 
-		timerText.text = "Timer: " + minutes + ":" + seconds;
+			string minutes = Mathf.Floor(gameTime / 60).ToString("00");
+			string seconds = (gameTime % 60).ToString("00");
+
+			timerText.text = "Timer: " + minutes + ":" + seconds;
+		}
+	}
+
+	private void checkWin (GameObject[] activePieces, GameObject[] inactivePieces) {
+		if (activePieces.Length == 0 && inactivePieces.Length == 0) {
+			win = true;
+			winMessage.SetActive (true);
+		}
 	}
 }
