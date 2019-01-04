@@ -18,18 +18,23 @@ public class GameController : MonoBehaviour {
 	private int pointCounter = 0;
 	private int MATCH_VALUE = 100;
 	private int FAIL_VALUE = 50;
+	private int defaultBoardLvl = 1;
 
 	private bool win = false;
 
+	public void goToMenu() {
+		SceneManager.LoadScene ("_Scenes/scene0", null);
+	}
+
 	public void resetGame() {
-		boardCreator.createBoard ();
+		boardCreator.createBoard (SceneManager.GetIntArgument("lvl"));
 		pointCounter = 0;
 		counterText.text = "Points: " + pointCounter;
 		startingTime = Time.fixedTime;
 		win = false;
 		winMessage.SetActive (false);
 	}
-
+		
 	protected void Update() {
 		// ACTIVE PIECES
 		GameObject[] activePieces = GameObject.FindGameObjectsWithTag("Active");

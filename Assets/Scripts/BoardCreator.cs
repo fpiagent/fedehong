@@ -41,9 +41,8 @@ public class BoardCreator : MonoBehaviour {
 
 	private System.Random rnd = new System.Random();
 
-	public void createBoard() {
+	public void createBoard(int boardId) {
 		deleteAllPieces();
-		int boardId = 2;
 
 		Stack<int> pieceStack = pickPrefabs(levelGenerator.getBoard(boardId));
 		BoardPosition pos = new BoardPosition ();
@@ -83,7 +82,7 @@ public class BoardCreator : MonoBehaviour {
 
 	void Start ()
 	{
-		createBoard ();
+		createBoard (SceneManager.GetIntArgument("lvl"));
 	}
 
 	// Pre-Picks all the preFabs to instantiate
